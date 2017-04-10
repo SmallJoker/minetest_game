@@ -19,27 +19,21 @@ Stone
 default:stone
 default:cobble
 default:stonebrick
-default:stone_block
 default:mossycobble
 
 default:desert_stone
 default:desert_cobble
 default:desert_stonebrick
-default:desert_stone_block
 
 default:sandstone
 default:sandstonebrick
-default:sandstone_block
 default:desert_sandstone
 default:desert_sandstone_brick
-default:desert_sandstone_block
 default:silver_sandstone
 default:silver_sandstone_brick
-default:silver_sandstone_block
 
 default:obsidian
 default:obsidianbrick
-default:obsidian_block
 
 Soft / Non-Stone
 ----------------
@@ -138,9 +132,7 @@ default:dry_grass_3
 default:dry_grass_4
 default:dry_grass_5
 
-default:bush_stem
 default:bush_leaves
-default:acacia_bush_stem
 default:acacia_bush_leaves
 
 Corals
@@ -189,7 +181,6 @@ default:obsidian_glass
 default:brick
 
 default:meselamp
-default:mese_post_light
 
 Misc
 ----
@@ -224,14 +215,6 @@ minetest.register_node("default:stonebrick", {
 	paramtype2 = "facedir",
 	place_param2 = 0,
 	tiles = {"default_stone_brick.png"},
-	is_ground_content = false,
-	groups = {cracky = 2, stone = 1},
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("default:stone_block", {
-	description = "Stone Block",
-	tiles = {"default_stone_block.png"},
 	is_ground_content = false,
 	groups = {cracky = 2, stone = 1},
 	sounds = default.node_sound_stone_defaults(),
@@ -273,14 +256,6 @@ minetest.register_node("default:desert_stonebrick", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("default:desert_stone_block", {
-	description = "Desert Stone Block",
-	tiles = {"default_desert_stone_block.png"},
-	is_ground_content = false,
-	groups = {cracky = 2, stone = 1},
-	sounds = default.node_sound_stone_defaults(),
-})
-
 minetest.register_node("default:sandstone", {
 	description = "Sandstone",
 	tiles = {"default_sandstone.png"},
@@ -293,14 +268,6 @@ minetest.register_node("default:sandstonebrick", {
 	paramtype2 = "facedir",
 	place_param2 = 0,
 	tiles = {"default_sandstone_brick.png"},
-	is_ground_content = false,
-	groups = {cracky = 2},
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("default:sandstone_block", {
-	description = "Sandstone Block",
-	tiles = {"default_sandstone_block.png"},
 	is_ground_content = false,
 	groups = {cracky = 2},
 	sounds = default.node_sound_stone_defaults(),
@@ -323,14 +290,6 @@ minetest.register_node("default:desert_sandstone_brick", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("default:desert_sandstone_block", {
-	description = "Desert Sandstone Block",
-	tiles = {"default_desert_sandstone_block.png"},
-	is_ground_content = false,
-	groups = {cracky = 2},
-	sounds = default.node_sound_stone_defaults(),
-})
-
 minetest.register_node("default:silver_sandstone", {
 	description = "Silver Sandstone",
 	tiles = {"default_silver_sandstone.png"},
@@ -343,14 +302,6 @@ minetest.register_node("default:silver_sandstone_brick", {
 	paramtype2 = "facedir",
 	place_param2 = 0,
 	tiles = {"default_silver_sandstone_brick.png"},
-	is_ground_content = false,
-	groups = {cracky = 2},
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("default:silver_sandstone_block", {
-	description = "Silver Sandstone Block",
-	tiles = {"default_silver_sandstone_block.png"},
 	is_ground_content = false,
 	groups = {cracky = 2},
 	sounds = default.node_sound_stone_defaults(),
@@ -373,13 +324,6 @@ minetest.register_node("default:obsidianbrick", {
 	groups = {cracky = 1, level = 2},
 })
 
-minetest.register_node("default:obsidian_block", {
-	description = "Obsidian Block",
-	tiles = {"default_obsidian_block.png"},
-	is_ground_content = false,
-	sounds = default.node_sound_stone_defaults(),
-	groups = {cracky = 1, level = 2},
-})
 
 --
 -- Soft / Non-Stone
@@ -513,7 +457,7 @@ minetest.register_node("default:snow", {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.25, 0.5},
+			{-0.5, -0.5, -0.5, 0.5, -0.375, 0.5},
 		},
 	},
 	groups = {crumbly = 3, falling_node = 1, puts_out_fire = 1, snowy = 1},
@@ -1282,65 +1226,11 @@ for i = 2, 5 do
 	})
 end
 
+minetest.register_alias("default:bush_stem", "default:tree")
+minetest.register_alias("default:bush_leaves", "default:leaves")
 
-minetest.register_node("default:bush_stem", {
-	description = "Bush Stem",
-	drawtype = "plantlike",
-	visual_scale = 1.41,
-	tiles = {"default_bush_stem.png"},
-	inventory_image = "default_bush_stem.png",
-	wield_image = "default_bush_stem.png",
-	paramtype = "light",
-	sunlight_propagates = true,
-	groups = {choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
-	sounds = default.node_sound_wood_defaults(),
-	selection_box = {
-		type = "fixed",
-		fixed = {-7 / 16, -0.5, -7 / 16, 7 / 16, 0.54, 7 / 16},
-	},
-})
-
-minetest.register_node("default:bush_leaves", {
-	description = "Bush Leaves",
-	drawtype = "allfaces_optional",
-	waving = 1,
-	tiles = {"default_leaves_simple.png"},
-	paramtype = "light",
-	groups = {snappy = 3, flammable = 2, leaves = 1},
-	sounds = default.node_sound_leaves_defaults(),
-
-	after_place_node = default.after_place_leaves,
-})
-
-minetest.register_node("default:acacia_bush_stem", {
-	description = "Acacia Bush Stem",
-	drawtype = "plantlike",
-	visual_scale = 1.41,
-	tiles = {"default_acacia_bush_stem.png"},
-	inventory_image = "default_acacia_bush_stem.png",
-	wield_image = "default_acacia_bush_stem.png",
-	paramtype = "light",
-	sunlight_propagates = true,
-	groups = {choppy = 2, oddly_breakable_by_hand = 1, flammable = 2},
-	sounds = default.node_sound_wood_defaults(),
-	selection_box = {
-		type = "fixed",
-		fixed = {-7 / 16, -0.5, -7 / 16, 7 / 16, 0.54, 7 / 16},
-	},
-})
-
-minetest.register_node("default:acacia_bush_leaves", {
-	description = "Acacia Bush Leaves",
-	drawtype = "allfaces_optional",
-	waving = 1,
-	tiles = {"default_acacia_leaves_simple.png"},
-	paramtype = "light",
-	groups = {snappy = 3, flammable = 2, leaves = 1},
-	sounds = default.node_sound_leaves_defaults(),
-
-	after_place_node = default.after_place_leaves,
-})
-
+minetest.register_alias("default:acacia_bush_stem", "default:acacia_tree")
+minetest.register_alias("default:acacia_bush_leaves", "default:acacia_leaves")
 
 --
 -- Corals
@@ -1465,101 +1355,8 @@ minetest.register_node("default:water_flowing", {
 	sounds = default.node_sound_water_defaults(),
 })
 
-
-minetest.register_node("default:river_water_source", {
-	description = "River Water Source",
-	drawtype = "liquid",
-	tiles = {
-		{
-			name = "default_river_water_source_animated.png",
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 2.0,
-			},
-		},
-	},
-	special_tiles = {
-		{
-			name = "default_river_water_source_animated.png",
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 2.0,
-			},
-			backface_culling = false,
-		},
-	},
-	alpha = 160,
-	paramtype = "light",
-	walkable = false,
-	pointable = false,
-	diggable = false,
-	buildable_to = true,
-	is_ground_content = false,
-	drop = "",
-	drowning = 1,
-	liquidtype = "source",
-	liquid_alternative_flowing = "default:river_water_flowing",
-	liquid_alternative_source = "default:river_water_source",
-	liquid_viscosity = 1,
-	liquid_renewable = false,
-	liquid_range = 2,
-	post_effect_color = {a = 103, r = 30, g = 76, b = 90},
-	groups = {water = 3, liquid = 3, puts_out_fire = 1, cools_lava = 1},
-	sounds = default.node_sound_water_defaults(),
-})
-
-minetest.register_node("default:river_water_flowing", {
-	description = "Flowing River Water",
-	drawtype = "flowingliquid",
-	tiles = {"default_river_water.png"},
-	special_tiles = {
-		{
-			name = "default_river_water_flowing_animated.png",
-			backface_culling = false,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 0.8,
-			},
-		},
-		{
-			name = "default_river_water_flowing_animated.png",
-			backface_culling = true,
-			animation = {
-				type = "vertical_frames",
-				aspect_w = 16,
-				aspect_h = 16,
-				length = 0.8,
-			},
-		},
-	},
-	alpha = 160,
-	paramtype = "light",
-	paramtype2 = "flowingliquid",
-	walkable = false,
-	pointable = false,
-	diggable = false,
-	buildable_to = true,
-	is_ground_content = false,
-	drop = "",
-	drowning = 1,
-	liquidtype = "flowing",
-	liquid_alternative_flowing = "default:river_water_flowing",
-	liquid_alternative_source = "default:river_water_source",
-	liquid_viscosity = 1,
-	liquid_renewable = false,
-	liquid_range = 2,
-	post_effect_color = {a = 103, r = 30, g = 76, b = 90},
-	groups = {water = 3, liquid = 3, puts_out_fire = 1,
-		not_in_creative_inventory = 1, cools_lava = 1},
-	sounds = default.node_sound_water_defaults(),
-})
-
+minetest.register_alias("default:river_water_source", "default:water_source")
+minetest.register_alias("default:river_water_flowing", "default:water_flowing")
 
 minetest.register_node("default:lava_source", {
 	description = "Lava Source",
@@ -2121,27 +1918,6 @@ minetest.register_node("default:meselamp", {
 	light_source = default.LIGHT_MAX,
 })
 
-minetest.register_node("default:mese_post_light", {
-	description = "Mese Post Light",
-	tiles = {"default_mese_post_light_top.png", "default_mese_post_light_top.png",
-		"default_mese_post_light_side_dark.png", "default_mese_post_light_side_dark.png",
-		"default_mese_post_light_side.png", "default_mese_post_light_side.png"},
-	wield_image = "default_mese_post_light_side.png",
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-2 / 16, -8 / 16, -2 / 16, 2 / 16, 8 / 16, 2 / 16},
-		},
-	},
-	paramtype = "light",
-	light_source = default.LIGHT_MAX,
-	sunlight_propagates = true,
-	is_ground_content = false,
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
-	sounds = default.node_sound_wood_defaults(),
-})
-
 --
 -- Misc
 --
@@ -2208,14 +1984,3 @@ default.register_leafdecay({
 	radius = 3,
 })
 
-default.register_leafdecay({
-	trunks = {"default:bush_stem"},
-	leaves = {"default:bush_leaves"},
-	radius = 1,
-})
-
-default.register_leafdecay({
-	trunks = {"default:acacia_bush_stem"},
-	leaves = {"default:acacia_bush_leaves"},
-	radius = 1,
-})
