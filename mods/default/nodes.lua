@@ -1233,6 +1233,8 @@ minetest.register_alias("default:bush_leaves", "default:leaves")
 minetest.register_alias("default:acacia_bush_stem", "default:acacia_tree")
 minetest.register_alias("default:acacia_bush_leaves", "default:acacia_leaves")
 
+minetest.register_alias("default:silver_sandstone_block", "default:steelblock")
+
 --
 -- Corals
 --
