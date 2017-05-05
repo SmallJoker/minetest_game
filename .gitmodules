@@ -1,0 +1,12 @@
+[submodule "mods/pipeworks"]
+	path = mods/pipeworks
+	url = https://github.com/minetest-mods/pipeworks
+[submodule "mods/moreblocks"]
+	path = mods/moreblocks
+	url = https://github.com/minetest-mods/moreblocks
+[submodule "mods/intllib"]
+	path = mods/intllib
+	url = https://github.com/minetest-mods/intllib
+[submodule "mods/mtg_i18n"]
+	path = mods/mtg_i18n
+	url = https://github.com/minetest-mods/mtg_i18n
