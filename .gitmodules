@@ -7,6 +7,3 @@
 [submodule "mods/intllib"]
 	path = mods/intllib
 	url = https://github.com/minetest-mods/intllib
-[submodule "mods/mtg_i18n"]
-	path = mods/mtg_i18n
-	url = https://github.com/minetest-mods/mtg_i18n
