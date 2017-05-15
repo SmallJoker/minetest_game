@@ -1,6 +1,3 @@
-[submodule "mods/pipeworks"]
-	path = mods/pipeworks
-	url = https://github.com/minetest-mods/pipeworks
 [submodule "mods/moreblocks"]
 	path = mods/moreblocks
 	url = https://github.com/minetest-mods/moreblocks
