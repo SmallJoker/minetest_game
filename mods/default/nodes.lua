@@ -1251,10 +1251,8 @@ end
 
 minetest.register_alias("default:bush_stem", "default:tree")
 minetest.register_alias("default:bush_leaves", "default:leaves")
-
 minetest.register_alias("default:acacia_bush_stem", "default:acacia_tree")
 minetest.register_alias("default:acacia_bush_leaves", "default:acacia_leaves")
-
 minetest.register_alias("default:silver_sandstone_block", "default:steelblock")
 
 --
@@ -1582,10 +1580,10 @@ local function get_chest_formspec(pos)
 		default.gui_bg ..
 		default.gui_bg_img ..
 		default.gui_slots ..
-		"list[nodemeta:" .. spos .. ";default:chest;0,0.3;8,4;]" ..
+		"list[nodemeta:" .. spos .. ";main;0,0.3;8,4;]" ..
 		"list[current_player;main;0,4.85;8,1;]" ..
 		"list[current_player;main;0,6.08;8,3;8]" ..
-		"listring[nodemeta:" .. spos .. ";default:chest]" ..
+		"listring[nodemeta:" .. spos .. ";main]" ..
 		"listring[current_player;main]" ..
 		default.get_hotbar_bg(0,4.85)
 	return formspec
@@ -1651,7 +1649,7 @@ function default.register_chest(name, d)
 			meta:set_string("infotext", "Locked Chest")
 			meta:set_string("owner", "")
 			local inv = meta:get_inventory()
-			inv:set_size("default:chest", 8*4)
+			inv:set_size("main", 8*4)
 		end
 		def.after_place_node = function(pos, placer)
 			local meta = minetest.get_meta(pos)
@@ -1662,7 +1660,7 @@ function default.register_chest(name, d)
 		def.can_dig = function(pos,player)
 			local meta = minetest.get_meta(pos);
 			local inv = meta:get_inventory()
-			return inv:is_empty("default:chest") and
+			return inv:is_empty("main") and
 					default.can_interact_with_node(player, pos)
 		end
 		def.allow_metadata_inventory_move = function(pos, from_list, from_index,
@@ -1748,12 +1746,12 @@ function default.register_chest(name, d)
 			local meta = minetest.get_meta(pos)
 			meta:set_string("infotext", "Chest")
 			local inv = meta:get_inventory()
-			inv:set_size("default:chest", 8*4)
+			inv:set_size("main", 8*4)
 		end
 		def.can_dig = function(pos,player)
 			local meta = minetest.get_meta(pos);
 			local inv = meta:get_inventory()
-			return inv:is_empty("default:chest")
+			return inv:is_empty("main")
 		end
 		def.on_rightclick = function(pos, node, clicker)
 			minetest.sound_play(def.sound_open, {gain = 0.3, pos = pos,
@@ -1820,16 +1818,18 @@ function default.register_chest(name, d)
 	-- convert old chests to this new variant
 	minetest.register_lbm({
 		label = "update chests to opening chests",
-		name = "default:upgrade_" .. name,
+		name = "default:upgrade_" .. name .. "_v2",
 		nodenames = {"default:" .. name},
 		action = function(pos, node)
 			local meta = minetest.get_meta(pos)
 			meta:set_string("formspec", nil)
 			local inv = meta:get_inventory()
-			local list = inv:get_list("main")
-			inv:set_list("main", nil)
-			inv:set_size("default:chest", 8*4)
-			inv:set_list("default:chest", list)
+			local list = inv:get_list("default:chest")
+			if list then
+				inv:set_size("main", 8*4)
+				inv:set_list("main", list)
+				inv:set_list("default:chest", nil)
+			end
 		end
 	})
 end
