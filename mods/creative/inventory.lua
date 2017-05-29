@@ -14,7 +14,8 @@ end
 
 function creative.update_creative_inventory(player_name, tab_content)
 	local creative_list = {}
-	local inv = player_inventory[player_name]
+	local inv = player_inventory[player_name] or
+		creative.init_creative_inventory(minetest.get_player_by_name(player_name))
 
 	for name, def in pairs(tab_content) do
 		if not (def.groups.not_in_creative_inventory == 1) and
