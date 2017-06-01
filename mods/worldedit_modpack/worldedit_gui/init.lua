@@ -136,12 +136,12 @@ elseif rawget(_G, "inventory_plus") then --inventory++ installed
 	end
 elseif rawget(_G, "sfinv") then --sfinv installed (part of minetest_game since 0.4.15)
 	assert(sfinv.enabled)
-	local orig_get = sfinv.pages["sfinv:crafting"].get
-	sfinv.override_page("sfinv:crafting", {
+	local orig_get = sfinv.pages["teacher_menu"].get
+	sfinv.override_page("teacher_menu", {
 		get = function(self, player, context)
 			local can_worldedit = minetest.check_player_privs(player, {worldedit=true})
 			local fs = orig_get(self, player, context)
-			return fs .. (can_worldedit and "image_button[0,0;1,1;inventory_plus_worldedit_gui.png;worldedit_gui;]" or "")
+			return fs .. (can_worldedit and "image_button[7,8;1,1;inventory_plus_worldedit_gui.png;worldedit_gui;]" or "")
 		end
 	})
 
@@ -151,7 +151,7 @@ elseif rawget(_G, "sfinv") then --sfinv installed (part of minetest_game since 0
 			worldedit.show_page(player:get_player_name(), "worldedit_gui")
 			return true
 		elseif fields.worldedit_gui_exit then --return to original page
-			sfinv.set_page(player, "sfinv:crafting")
+			sfinv.set_page(player, "teacher_menu")
 			return true
 		end
 		return false
