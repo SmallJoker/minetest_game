@@ -85,6 +85,9 @@ function sfinv.get_formspec(player, context)
 	else
 		local old_page = context.page
 		context.page = sfinv.get_homepage_name(player)
+		if not sfinv.pages[context.page] then
+			context.page = "creative:all"
+		end
 		assert(sfinv.pages[context.page], "[sfinv] Invalid homepage")
 		minetest.log("warning", "[sfinv] Couldn't find " .. dump(old_page) .. " so using switching to homepage")
 		return sfinv.get_formspec(player, context)
