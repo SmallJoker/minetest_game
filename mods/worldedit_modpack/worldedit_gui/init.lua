@@ -163,7 +163,7 @@ elseif rawget(_G, "sfinv") and rawget(_G, "teacher_menu") then --sfinv installed
 			player:set_inventory_formspec(get_formspec(name, page))
 		end
 	end
-else --fallback button
+elseif rawget(_G, "teacher_menu") then --fallback button
 	-- FIXME: this is a huge clusterfuck and the back button is broken
 	local player_formspecs = {}
 
