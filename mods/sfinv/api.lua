@@ -9,11 +9,13 @@ function sfinv.register_page(name, def)
 	assert(name, "Invalid sfinv page. Requires a name")
 	assert(def, "Invalid sfinv page. Requires a def[inition] table")
 	assert(def.get, "Invalid sfinv page. Def requires a get function.")
-	assert(not sfinv.pages[name], "Attempt to register already registered sfinv page " .. dump(name))
+	--assert(not sfinv.pages[name], "Attempt to register already registered sfinv page " .. dump(name))
 
-	sfinv.pages[name] = def
-	def.name = name
-	table.insert(sfinv.pages_unordered, def)
+	if not sfinv.pages[name] then
+		sfinv.pages[name] = def
+		def.name = name
+		table.insert(sfinv.pages_unordered, def)
+	end
 end
 
 function sfinv.override_page(name, def)
