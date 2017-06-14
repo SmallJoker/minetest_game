@@ -134,7 +134,7 @@ elseif rawget(_G, "inventory_plus") then --inventory++ installed
 			inventory_plus.set_inventory_formspec(player, get_formspec(name, page))
 		end
 	end
-elseif rawget(_G, "sfinv") and rawget(_G, "teacher_menu") then --sfinv installed (part of minetest_game since 0.4.15)
+elseif rawget(_G, "sfinv") and minetest.get_modpath("teacher_menu") then
 	assert(sfinv.enabled)
 	local orig_get = sfinv.pages["teacher_menu"].get
 	sfinv.override_page("teacher_menu", {
