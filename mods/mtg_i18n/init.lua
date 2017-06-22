@@ -5,8 +5,9 @@ local S, NS = dofile(MP.."/intllib.lua")
 
 local function desc(name, description)
 	if minetest.registered_items[name] then
+		local str = S(description):gsub("[^%w%s]", "")
 		minetest.override_item(name, {
-			description = S(description)
+			description = str
 		})
 	end
 end
