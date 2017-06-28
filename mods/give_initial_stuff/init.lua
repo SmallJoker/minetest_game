@@ -1,6 +1,10 @@
-local stuff_string = minetest.settings:get("initial_stuff") or
-		"default:pick_steel,default:axe_steel,default:shovel_steel," ..
-		"default:torch 99,default:cobble 99"
+local stuff_string =
+	minetest.settings:get("initial_stuff") or
+	"default:pick_steel"
+
+if minetest.get_modpath("kidsbot") then
+	stuff_string = stuff_string .. ",kidsbot:bot"
+end
 
 give_initial_stuff = {
 	items = {}
