@@ -1,5 +1,4 @@
 local player_inventory = {}
-local ipp = 3*8 -- items per page
 
 function creative.init_creative_inventory(player)
 	local player_name = player:get_player_name()
@@ -60,7 +59,7 @@ function creative.register_tab(name, title, items)
 			local ipp = inv.expand and 3*8 or 6*8
 			local start_i = inv.start_i or 0
 			local pagenum = math.floor(start_i / ipp + 1)
-			local items = creative.update_creative_inventory(player_name, items)
+			local inv_items = creative.update_creative_inventory(player_name, items)
 			local pagemax = math.ceil(inv.size / ipp)
 			local offset = inv.expand and 3 or 6
 
@@ -97,14 +96,14 @@ function creative.register_tab(name, title, items)
 
 			local first_item = (pagenum - 1) * ipp
 			for i = first_item, first_item + ipp - 1 do
-				local name = items[i + 1]
-				if not name then break end
+				local item_name = inv_items[i + 1]
+				if not item_name then break end
 				local X = i % 8
 				local Y = (i % ipp - X) / 8 + 1
 
 				formspec = formspec ..
-					"item_image_button[" .. X .. "," .. (Y - 1) .. ";1.1,1.1;" ..
-					name .. ";" .. name .. "_inv;]"
+					"item_image_button[" .. X .. "," .. (Y - 1) ..
+					";1.1,1.1;" .. item_name .. ";" .. item_name .. "_inv;]"
 			end
 
 			return sfinv.make_formspec(player, context, formspec, false)
