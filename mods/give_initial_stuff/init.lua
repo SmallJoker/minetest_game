@@ -3,7 +3,7 @@ local stuff_string =
 	"default:pick_steel"
 
 if minetest.get_modpath("kidsbot") then
-	stuff_string = stuff_string .. ",kidsbot:bot"
+	stuff_string = (stuff_string ~= "" and "," or "") .. "kidsbot:bot"
 end
 
 give_initial_stuff = {
