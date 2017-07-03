@@ -533,7 +533,7 @@ minetest.register_node("default:wood", {
 })
 
 minetest.register_node("default:sapling", {
-	description = "Sapling",
+	description = "Tree Sapling",
 	drawtype = "plantlike",
 	tiles = {"default_sapling.png"},
 	inventory_image = "default_sapling.png",
@@ -569,7 +569,7 @@ minetest.register_node("default:sapling", {
 })
 
 minetest.register_node("default:leaves", {
-	description = "Leaves",
+	description = "Tree Leaves",
 	drawtype = "allfaces_optional",
 	waving = 1,
 	tiles = {"default_leaves.png"},
@@ -646,7 +646,7 @@ minetest.register_node("default:junglewood", {
 })
 
 minetest.register_node("default:jungleleaves", {
-	description = "Jungle Leaves",
+	description = "Jungle Tree Leaves",
 	drawtype = "allfaces_optional",
 	waving = 1,
 	tiles = {"default_jungleleaves.png"},
@@ -667,7 +667,7 @@ minetest.register_node("default:jungleleaves", {
 })
 
 minetest.register_node("default:junglesapling", {
-	description = "Jungle Sapling",
+	description = "Jungle Tree Sapling",
 	drawtype = "plantlike",
 	tiles = {"default_junglesapling.png"},
 	inventory_image = "default_junglesapling.png",
@@ -746,7 +746,7 @@ minetest.register_node("default:pine_needles",{
 })
 
 minetest.register_node("default:pine_sapling", {
-	description = "Pine Sapling",
+	description = "Pine Tree Sapling",
 	drawtype = "plantlike",
 	tiles = {"default_pine_sapling.png"},
 	inventory_image = "default_pine_sapling.png",
@@ -805,7 +805,7 @@ minetest.register_node("default:acacia_wood", {
 })
 
 minetest.register_node("default:acacia_leaves", {
-	description = "Acacia Leaves",
+	description = "Acacia Tree Leaves",
 	drawtype = "allfaces_optional",
 	tiles = {"default_acacia_leaves.png"},
 	special_tiles = {"default_acacia_leaves_simple.png"},
@@ -884,7 +884,7 @@ minetest.register_node("default:aspen_wood", {
 })
 
 minetest.register_node("default:aspen_leaves", {
-	description = "Aspen Leaves",
+	description = "Aspen Tree Leaves",
 	drawtype = "allfaces_optional",
 	tiles = {"default_aspen_leaves.png"},
 	waving = 1,
@@ -1797,12 +1797,19 @@ function default.register_chest(name, d)
 	local def_closed = table.copy(def)
 
 	def_opened.mesh = "chest_open.obj"
+	for i = 1, #def_opened.tiles do
+		if type(def_opened.tiles[i]) == "string" then
+			def_opened.tiles[i] = {name = def_opened.tiles[i], backface_culling = true}
+		elseif def_opened.tiles[i].backface_culling == nil then
+			def_opened.tiles[i].backface_culling = true
+		end
+	end
 	def_opened.drop = "default:" .. name
 	def_opened.groups.not_in_creative_inventory = 1
 	def_opened.selection_box = {
 		type = "fixed",
 		fixed = { -1/2, -1/2, -1/2, 1/2, 3/16, 1/2 },
-		}
+	}
 	def_opened.can_dig = function()
 		return false
 	end
@@ -2062,7 +2069,7 @@ default.register_fence("default:fence_wood", {
 })
 
 default.register_fence("default:fence_acacia_wood", {
-	description = "Acacia Fence",
+	description = "Acacia Wood Fence",
 	texture = "default_fence_acacia_wood.png",
 	inventory_image = "default_fence_overlay.png^default_acacia_wood.png^default_fence_overlay.png^[makealpha:255,126,126",
 	wield_image = "default_fence_overlay.png^default_acacia_wood.png^default_fence_overlay.png^[makealpha:255,126,126",
@@ -2082,7 +2089,7 @@ default.register_fence("default:fence_junglewood", {
 })
 
 default.register_fence("default:fence_pine_wood", {
-	description = "Pine Fence",
+	description = "Pine Wood Fence",
 	texture = "default_fence_pine_wood.png",
 	inventory_image = "default_fence_overlay.png^default_pine_wood.png^default_fence_overlay.png^[makealpha:255,126,126",
 	wield_image = "default_fence_overlay.png^default_pine_wood.png^default_fence_overlay.png^[makealpha:255,126,126",
@@ -2092,7 +2099,7 @@ default.register_fence("default:fence_pine_wood", {
 })
 
 default.register_fence("default:fence_aspen_wood", {
-	description = "Aspen Fence",
+	description = "Aspen Wood Fence",
 	texture = "default_fence_aspen_wood.png",
 	inventory_image = "default_fence_overlay.png^default_aspen_wood.png^default_fence_overlay.png^[makealpha:255,126,126",
 	wield_image = "default_fence_overlay.png^default_aspen_wood.png^default_fence_overlay.png^[makealpha:255,126,126",
