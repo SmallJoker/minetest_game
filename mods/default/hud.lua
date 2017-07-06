@@ -1,4 +1,4 @@
-local wield, hud, timer = {}, {}, {}
+local hud, timer = {}, {}
 local timeout = 2
 
 local function add_text(player)
@@ -18,9 +18,12 @@ minetest.register_on_joinplayer(function(player)
 end)
 
 minetest.register_globalstep(function(dtime)
-	for _, player in pairs(minetest.get_connected_players()) do
+	local players = minetest.get_connected_players()
+	for i = 1, #players do
+		local player = players[i]
 		local player_name = player:get_player_name()
-		local wielded_item = player:get_wielded_item():get_name()
+		local wielded_item = player:get_wielded_item()
+		local wielded_item_name = wielded_item:get_name()
 
 		if timer[player_name] and timer[player_name] < timeout then
 			timer[player_name] = timer[player_name] + dtime
@@ -29,19 +32,16 @@ minetest.register_globalstep(function(dtime)
 			end
 		end
 
-		if wielded_item ~= wield[player_name] then
-			wield[player_name] = wielded_item
-			timer[player_name] = 0
+		timer[player_name] = 0
 
-			if hud[player_name] then 
-				local def = minetest.registered_items[wielded_item]
-				local meta = player:get_wielded_item():get_meta()
-				local meta_desc = meta:get_string("description")
-				meta_desc = meta_desc:gsub("\27", ""):gsub("%(c@#%w%w%w%w%w%w%)", "")
-				local description = meta_desc ~= "" and meta_desc or (def and def.description or "")
+		if hud[player_name] then
+			local def = minetest.registered_items[wielded_item_name]
+			local meta = wielded_item:get_meta()
+			local meta_desc = meta:get_string("description")
+			meta_desc = meta_desc:gsub("\27", ""):gsub("%(c@#%w%w%w%w%w%w%)", "")
+			local description = meta_desc ~= "" and meta_desc or (def and def.description or "")
 
-				player:hud_change(hud[player_name], "text", description)
-			end
+			player:hud_change(hud[player_name], "text", description)
 		end
 	end
 end)
