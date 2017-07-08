@@ -80,6 +80,8 @@ function creative.register_tab(name, title, items)
 					".png;creative_" ..
 					(inv.expand and "less" or "more") ..
 					";;true;false;]" ..
+				"image_button[7.55,8.55;0.45,0.4;creative_clear_inv.png;" ..
+					"creative_clear_inv;;true;false;]" ..
 				"tooltip[creative_search;Search]" ..
 				"tooltip[creative_clear;Reset]" ..
 				"listring[current_player;main]" ..
@@ -91,7 +93,7 @@ function creative.register_tab(name, title, items)
 
 			if inv.expand then
 				formspec = formspec ..
-					"list[current_player;main;0,5.55;8,3;8]"
+					"list[current_player;main;0,5.5;8,3;8]"
 			end
 
 			local first_item = (pagenum - 1) * ipp
@@ -120,6 +122,7 @@ function creative.register_tab(name, title, items)
 		on_player_receive_fields = function(self, player, context, fields)
 			local player_name = player:get_player_name()
 			local inv = player_inventory[player_name]
+			local player_inv = player:get_inventory()
 			assert(inv)
 
 			if fields.creative_clear then
@@ -161,11 +164,12 @@ function creative.register_tab(name, title, items)
 				inv.start_i = start_i
 				sfinv.set_player_inventory_formspec(player, context)
 
+			elseif fields.creative_clear_inv then
+				player_inv:set_list("main", {})
+
 			else for item in pairs(fields) do
 				  if item:find(":") then
 					local can_add = false
-					local player_inv = player:get_inventory()
-
 					for i = 1, 8 do
 						if player_inv:get_stack("main", i):is_empty() then
 							can_add = true
